@@ -1,0 +1,230 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enumeración para el estado de los partes de trabajo
+enum EstadoParte {
+  PENDIENTE
+  EN_PROCESO
+  COMPLETADO
+  CANCELADO
+  RECHAZADO
+}
+
+// Enumeración para el tipo de vehículo
+enum TipoVehiculo {
+  CAMION
+  EXCAVADORA
+  RETROEXCAVADORA
+  BULLDOZER
+  GRUA
+  OTRO
+}
+
+// Cliente (empresa para la que se realiza el trabajo)
+model Cliente {
+  id            String   @id @default(cuid())
+  nombre        String
+  cif           String   @unique
+  direccion     String
+  codigoPostal  String
+  ciudad        String
+  provincia     String
+  telefono      String?
+  email         String?
+  contacto      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relaciones
+  obras         Obra[]
+
+  @@map("clientes")
+}
+
+// Obra (lugar donde se realizan los trabajos)
+model Obra {
+  id            String   @id @default(cuid())
+  nombre        String
+  direccion     String
+  codigoPostal  String
+  ciudad        String
+  provincia     String
+  estado        String   @default("ACTIVA") // ACTIVA, PAUSADA, COMPLETADA
+  fechaInicio   DateTime
+  fechaFin      DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relaciones
+  clienteId     String
+  cliente       Cliente  @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+  partesTrabajo ParteDeTrabajo[]
+
+  @@map("obras")
+}
+
+// Transportista (empresa de transporte)
+model Transportista {
+  id            String   @id @default(cuid())
+  nombre        String
+  cif           String   @unique
+  direccion     String?
+  telefono      String?
+  email         String?
+  contacto      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relaciones
+  vehiculos     Vehiculo[]
+
+  @@map("transportistas")
+}
+
+// Vehículo
+model Vehiculo {
+  id                String       @id @default(cuid())
+  matricula         String       @unique
+  tipo              TipoVehiculo
+  marca             String
+  modelo            String
+  capacidad         Float?       // Capacidad en toneladas o m³
+  año               Int?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  // Relaciones
+  transportistaId   String?
+  transportista     Transportista? @relation(fields: [transportistaId], references: [id], onDelete: SetNull)
+  partesTrabajo     ParteDeTrabajo[]
+  lineasParte       LineaParte[]
+
+  @@map("vehiculos")
+}
+
+// Conductor
+model Conductor {
+  id            String   @id @default(cuid())
+  nombre        String
+  apellidos     String
+  dni           String   @unique
+  telefono      String?
+  email         String?
+  licencia      String?  // Tipo de licencia de conducir
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relaciones
+  partesTrabajo ParteDeTrabajo[]
+  jornadas      Jornada[]
+
+  @@map("conductores")
+}
+
+// Material (tipo de material transportado)
+model Material {
+  id            String   @id @default(cuid())
+  nombre        String
+  descripcion   String?
+  unidad        String   // Toneladas, m³, etc.
+  precio        Float?   // Precio por unidad
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relaciones
+  lineasParte   LineaParte[]
+
+  @@map("materiales")
+}
+
+// Radio (zona de operación)
+model Radio {
+  id            String   @id @default(cuid())
+  nombre        String
+  descripcion   String?
+  ciudad        String
+  provincia     String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relaciones
+  partesTrabajo ParteDeTrabajo[]
+
+  @@map("radios")
+}
+
+// Jornada (registro de horas del conductor)
+model Jornada {
+  id            String   @id @default(cuid())
+  fecha         DateTime
+  horaInicio    DateTime
+  horaFin       DateTime
+  observaciones String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relaciones
+  conductorId   String
+  conductor     Conductor @relation(fields: [conductorId], references: [id], onDelete: Cascade)
+
+  @@map("jornadas")
+}
+
+// Parte de Trabajo (documento principal)
+model ParteDeTrabajo {
+  id            String      @id @default(cuid())
+  fecha         DateTime
+  estado        EstadoParte @default(PENDIENTE)
+  observaciones String?
+  firmado       Boolean     @default(false)
+  numeroAlbaran String?     @unique
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relaciones
+  obraId        String
+  obra          Obra        @relation(fields: [obraId], references: [id], onDelete: Restrict)
+  conductorId   String
+  conductor     Conductor   @relation(fields: [conductorId], references: [id], onDelete: Restrict)
+  vehiculoId    String
+  vehiculo      Vehiculo    @relation(fields: [vehiculoId], references: [id], onDelete: Restrict)
+  radioId       String?
+  radio         Radio?      @relation(fields: [radioId], references: [id], onDelete: SetNull)
+  lineasParte   LineaParte[]
+
+  @@map("partes_trabajo")
+}
+
+// Línea de Parte (detalles del trabajo realizado)
+model LineaParte {
+  id              String   @id @default(cuid())
+  horaSalida      DateTime
+  horaLlegada     DateTime
+  cantidad        Float    // Cantidad de material
+  observaciones   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relaciones
+  parteTrabajoId  String
+  parteTrabajo    ParteDeTrabajo @relation(fields: [parteTrabajoId], references: [id], onDelete: Cascade)
+  vehiculoId      String
+  vehiculo        Vehiculo @relation(fields: [vehiculoId], references: [id], onDelete: Restrict)
+  materialId      String
+  material        Material @relation(fields: [materialId], references: [id], onDelete: Restrict)
+
+  @@map("lineas_parte")
+}

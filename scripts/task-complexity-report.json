@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "generatedAt": "2025-05-02T10:22:58.760Z",
+    "tasksAnalyzed": 15,
+    "thresholdScore": 5,
+    "projectName": "Your Project Name",
+    "usedResearch": false
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Project Setup and Configuration",
+      "complexityScore": 5,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the Next.js project setup with Tailwind CSS and Shadcn UI into specific implementation steps, including repository initialization, package installation, configuration files setup, folder structure creation, and environment variable configuration.",
+      "reasoning": "This task involves multiple technologies (Next.js, Tailwind, Shadcn UI) and configuration steps. While each step is relatively straightforward for experienced developers, the combination requires careful coordination to ensure proper integration. Breaking it into subtasks will help ensure nothing is missed in the foundation setup."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Database Schema Implementation with Prisma",
+      "complexityScore": 7,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Detail the step-by-step process for implementing a comprehensive Prisma schema for a transportation management system, including model definitions, relationships, constraints, migration setup, and database client configuration.",
+      "reasoning": "This task involves designing and implementing a complex database schema with multiple interrelated entities. Each entity has its own fields and relationships that need careful modeling. The task also includes setting up Prisma with Neon PostgreSQL and creating migration scripts, adding technical complexity."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Authentication Implementation with Clerk",
+      "complexityScore": 6,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the implementation of Clerk authentication in a Next.js application, including SDK setup, middleware configuration, user role management, protected routes, and user profile functionality.",
+      "reasoning": "Implementing authentication with Clerk involves several interconnected components. The role-based access control adds complexity, as does the need to integrate authentication state throughout the application. Creating proper sign-in/sign-up flows and protecting routes based on roles requires careful planning."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Layout and Navigation Components",
+      "complexityScore": 6,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Detail the steps for creating responsive layout and navigation components for a transportation management system with different user roles, including dashboard layouts, mobile optimization, and reusable UI components.",
+      "reasoning": "This task requires designing and implementing multiple layout components that need to be responsive and role-specific. Creating reusable components that work across the application adds complexity. The need to handle different device sizes and implement proper loading/error states further increases the scope."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Driver Dashboard Implementation",
+      "complexityScore": 7,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the implementation of a driver dashboard for a transportation management system, including work order listing, filtering, sorting, pagination, mobile optimization, and search functionality.",
+      "reasoning": "The driver dashboard combines multiple complex UI elements and data operations. Implementing filtering, sorting, pagination, and search requires both frontend components and backend data handling. The mobile optimization requirement adds another layer of complexity, as does the need to display summary metrics."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Work Order Creation Form for Drivers",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Detail the steps for implementing a multi-step work order creation form with validation, dynamic elements, draft saving, and mobile optimization for field use by drivers.",
+      "reasoning": "Creating a multi-step form with complex validation is inherently challenging. The form needs to handle various data types, implement client-side validation, and provide immediate feedback. The draft saving feature adds state management complexity, and mobile optimization is critical for field use."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Line Item Management for Work Orders",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the implementation of line item management functionality within work orders, including components for adding, editing, deleting, and reordering line items with proper validation and state management.",
+      "reasoning": "This task involves creating a complex nested form structure where line items exist within work orders. The drag-and-drop reordering adds significant UI complexity. Each line item has its own validation requirements, and changes need to properly update the parent work order state."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Work Order Submission and API Implementation",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Detail the implementation of API endpoints and submission flow for work orders, including CRUD operations, server-side validation, error handling, authorization checks, and notification systems.",
+      "reasoning": "This task combines frontend submission flows with backend API implementation. Creating robust API routes with proper validation, error handling, and authorization is complex. The endpoints need to support filtering and pagination, and the notification system adds another layer of complexity."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Administrator Dashboard Implementation",
+      "complexityScore": 7,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the implementation of a comprehensive administrator dashboard with metrics, visualizations, activity feeds, notifications, and data export functionality.",
+      "reasoning": "The administrator dashboard requires integrating multiple data sources to display metrics and recent activity. Creating effective visualizations and an activity feed adds complexity. The dashboard needs to provide quick access to various system functions while remaining usable and not overwhelming."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Work Order Management for Administrators",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Detail the implementation of a comprehensive work order management interface for administrators, including listing, filtering, detailed view, editing, approval workflow, batch operations, audit logging, and export functionality.",
+      "reasoning": "This task involves creating a complex management interface with advanced filtering and multiple operations. The approval workflow adds process complexity, and batch operations require careful implementation. Audit logging and commenting features add additional data management requirements."
+    },
+    {
+      "taskId": 11,
+      "taskTitle": "Entity Management: Vehicles and Drivers",
+      "complexityScore": 6,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the implementation of CRUD operations and interfaces for managing vehicles and drivers, including listing pages, forms, validation, API endpoints, relationship management, and history tracking.",
+      "reasoning": "This task involves creating standard CRUD operations for two related entities. The complexity comes from implementing proper validation, managing relationships between drivers and vehicles, and tracking vehicle status and history. The interfaces need search and filtering capabilities."
+    },
+    {
+      "taskId": 12,
+      "taskTitle": "Entity Management: Transporters, Clients, and Work Sites",
+      "complexityScore": 6,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Detail the implementation of CRUD operations and interfaces for managing transporters, clients, and work sites, including listing pages, forms, validation, API endpoints, relationship management, and activity tracking.",
+      "reasoning": "Similar to task 11, this involves creating CRUD operations for multiple entities. The complexity comes from managing relationships between entities (like clients to work sites) and implementing contact and location management features. Activity tracking adds another data management requirement."
+    },
+    {
+      "taskId": 13,
+      "taskTitle": "Entity Management: Materials, Shifts, and Distance Ranges",
+      "complexityScore": 6,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the implementation of CRUD operations and interfaces for managing materials, shifts, and distance ranges, including listing pages, forms, validation, API endpoints, categorization, and usage statistics.",
+      "reasoning": "This task follows the pattern of tasks 11 and 12, implementing CRUD operations for specialized entities. The complexity comes from the specific features needed for each entity type, such as material categorization, shift time period management, and distance calculation helpers."
+    },
+    {
+      "taskId": 14,
+      "taskTitle": "Advanced Search and Reporting",
+      "complexityScore": 8,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Detail the implementation of advanced search and reporting capabilities, including multi-criteria search, saved searches, report generation, data export, scheduled reports, visualizations, and email delivery.",
+      "reasoning": "This task involves complex data querying and presentation. Implementing advanced search with multiple criteria across related entities is challenging. The reporting features add significant complexity, especially scheduled reports and email delivery. Data visualization and export in multiple formats further increase the scope."
+    },
+    {
+      "taskId": 15,
+      "taskTitle": "System Optimization and Final Polishing",
+      "complexityScore": 7,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the process of optimizing and polishing a transportation management system for production, including database query optimization, caching, component rendering improvements, UI enhancements, documentation, and deployment preparation.",
+      "reasoning": "This task covers a wide range of optimization and polishing activities across the entire application. Performance optimization requires deep understanding of both frontend and backend systems. Implementing caching, improving loading states, and enhancing error handling all require careful consideration. The final documentation and deployment preparation are critical for production readiness."
+    }
+  ]
+}

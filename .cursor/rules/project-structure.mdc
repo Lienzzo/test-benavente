@@ -1,0 +1,112 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+The following directory tree outlines the standard and required project structure for the Logistics Work Report Software. Please adhere to this organization throughout the development process.
+
+This structure is designed for clarity, scalability, and maintainability, leveraging best practices for the project's technology stack: Next.js (App Router), TypeScript, Prisma, Clerk, Tailwind CSS, and Shadcn UI.
+
+.
+├── .env                  # Variables de entorno locales (¡SECRETO - NO SUBIR A GIT!)
+├── .env.example          # Plantilla de variables de entorno para configurar
+├── .eslintrc.json        # Configuración de ESLint para calidad de código
+├── .gitignore            # Archivos y carpetas ignorados por Git
+├── .prettierrc.json      # Configuración de Prettier para formateo de código (Opcional)
+├── components.json       # Configuración de componentes Shadcn UI
+├── next.config.mjs       # Configuración principal de Next.js
+├── package.json          # Dependencias del proyecto y scripts (npm/yarn/pnpm)
+├── postcss.config.js     # Configuración de PostCSS (requerido por Tailwind)
+├── project-structure.txt # Este archivo de estructura
+├── prisma/               # Configuración y migraciones de Prisma ORM
+│   ├── migrations/       # Directorios con el historial de migraciones SQL
+│   │   └── ...           # (Carpetas generadas automáticamente por 'prisma migrate dev')
+│   ├── schema.prisma     # Definición del modelo de datos (tablas, relaciones)
+│   └── seed.ts           # Script opcional para poblar la BD con datos iniciales
+├── public/               # Archivos estáticos (imágenes, fuentes, etc.)
+│   ├── images/
+│   └── favicon.ico
+├── src/                  # Directorio principal del código fuente de la aplicación
+│   ├── app/              # Núcleo del Next.js App Router (rutas y UI)
+│   │   ├── (admin)/        # Grupo de rutas protegidas para Administradores
+│   │   │   ├── clientes/     # Sección CRUD para Clientes
+│   │   │   │   ├── page.tsx      # Página de listado/gestión de clientes
+│   │   │   │   └── [clienteId]/page.tsx # Página de detalle/edición de cliente
+│   │   │   ├── conductores/  # Sección CRUD para Conductores
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [conductorId]/page.tsx
+│   │   │   ├── jornadas/     # Sección CRUD para Jornadas
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [jornadaId]/page.tsx
+│   │   │   ├── materiales/   # Sección CRUD para Materiales
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [materialId]/page.tsx
+│   │   │   ├── obras/        # Sección CRUD para Obras
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [obraId]/page.tsx
+│   │   │   ├── partes/       # Sección para ver/gestionar TODOS los Partes de Trabajo
+│   │   │   │   ├── page.tsx      # Listado maestro de partes
+│   │   │   │   └── [parteId]/page.tsx # Vista detallada/edición de un parte
+│   │   │   ├── radios/       # Sección CRUD para Radios
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [radioId]/page.tsx
+│   │   │   ├── transportistas/ # Sección CRUD para Transportistas
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [transportistaId]/page.tsx
+│   │   │   ├── vehiculos/    # Sección CRUD para Vehículos
+│   │   │   │   ├── page.tsx
+│   │   │   │   └── [vehiculoId]/page.tsx
+│   │   │   ├── _components/  # Componentes React específicos del layout/rutas de admin
+│   │   │   ├── layout.tsx    # Layout principal del panel de administración (con sidebar, header, etc.)
+│   │   │   ├── loading.tsx   # UI de carga específica para secciones de admin
+│   │   │   └── page.tsx      # Dashboard principal del administrador
+│   │   ├── (auth)/         # Grupo de rutas para Autenticación (gestionadas por Clerk)
+│   │   │   ├── sign-in/[[...sign-in]]/page.tsx # Página de inicio de sesión de Clerk
+│   │   │   ├── sign-up/[[...sign-up]]/page.tsx # Página de registro de Clerk
+│   │   │   └── layout.tsx    # Layout simple para las páginas de autenticación
+│   │   ├── (driver)/       # Grupo de rutas protegidas para Conductores
+│   │   │   ├── partes/       # Sección de gestión de partes para el conductor
+│   │   │   │   ├── nuevo/
+│   │   │   │   │   └── page.tsx # Formulario para crear un nuevo parte de trabajo
+│   │   │   │   └── [parteId]/
+│   │   │   │       └── page.tsx # Formulario para editar un parte existente
+│   │   │   ├── _components/  # Componentes React específicos del layout/rutas de conductor
+│   │   │   ├── layout.tsx    # Layout específico para la vista del conductor (más simple)
+│   │   │   ├── loading.tsx   # UI de carga para la sección del conductor
+│   │   │   └── page.tsx      # Dashboard del conductor (listado de sus partes)
+│   │   ├── api/            # Endpoints de API REST (si se usan además de Server Actions)
+│   │   │   └── webhook/
+│   │   │       └── clerk/route.ts # Ejemplo: Webhook para eventos de Clerk
+│   │   ├── error.tsx       # Página de error global para la aplicación
+│   │   ├── globals.css     # Estilos globales y directivas de Tailwind CSS
+│   │   ├── layout.tsx      # Layout raíz de la aplicación (<html>, <body>, providers globales)
+│   │   └── page.tsx        # Página de inicio principal de la aplicación (landing o redirección)
+│   ├── components/       # Componentes React reutilizables en toda la aplicación
+│   │   ├── features/       # Componentes agrupados por funcionalidad específica
+│   │   │   └── parte-trabajo/ # Ej: Componentes para mostrar/editar partes
+│   │   │       └── ParteCard.tsx
+│   │   ├── forms/          # Componentes reutilizables para formularios
+│   │   │   └── SubmitButton.tsx
+│   │   ├── icons/          # Componentes de iconos personalizados
+│   │   ├── layout/         # Componentes para construir layouts (AdminSidebar, Header, etc.)
+│   │   └── ui/             # Componentes base de Shadcn UI (Button, Input, Card, etc.)
+│   ├── constants/        # Constantes globales de la aplicación
+│   │   ├── index.ts
+│   │   └── roles.ts        # Ej: export const ROLES = { ADMIN: 'admin', DRIVER: 'driver' };
+│   ├── hooks/            # Custom React Hooks reutilizables
+│   │   └── use-form-validation.ts # Ejemplo
+│   ├── lib/              # Lógica central, utilidades, clientes de servicios externos
+│   │   ├── actions/        # Server Actions (lógica de backend invocable desde el frontend)
+│   │   │   ├── parteActions.ts # Acciones relacionadas con Partes de Trabajo
+│   │   │   └── userActions.ts  # Acciones relacionadas con usuarios
+│   │   ├── auth.ts         # Funciones de utilidad relacionadas con Clerk (obtener usuario, rol)
+│   │   ├── db.ts           # Instancia singleton del cliente Prisma para acceso a BD
+│   │   ├── utils.ts        # Funciones de utilidad generales (formateo, cálculos)
+│   │   └── validators/     # Esquemas de validación de datos (usando Zod)
+│   │       ├── index.ts
+│   │       └── parteSchema.ts # Esquema de validación para Partes de Trabajo
+│   └── types/            # Definiciones globales de tipos e interfaces TypeScript
+│       ├── db.ts           # Tipos inferidos o generados por Prisma (o referencias)
+│       └── index.ts        # Tipos personalizados (ParteDeTrabajo, LineaParte, etc.)
+├── tailwind.config.ts    # Configuración de Tailwind CSS (temas, plugins)
+└── tsconfig.json         # Configuración del compilador de TypeScript

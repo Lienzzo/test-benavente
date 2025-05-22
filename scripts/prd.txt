@@ -1,0 +1,236 @@
+# Overview
+
+El Software Logístico de Partes de Trabajo es una aplicación web diseñada para digitalizar y agilizar la captura de información de campo en el sector logístico/transporte. El sistema permitirá a los conductores completar y enviar formularios de partes de trabajo detallados desde dispositivos móviles, mientras los administradores podrán gestionar y supervisar toda la información desde un panel de control centralizado.
+
+Este software resuelve el problema de la ineficiencia y posibles errores en la documentación manual de operaciones logísticas, proporcionando un proceso estructurado y digital que mejora la precisión de los datos, la trazabilidad y la capacidad de análisis para empresas de transporte y logística.
+
+# Core Features
+
+## Sistema de Autenticación y Control de Acceso
+- Implementación de Clerk para la gestión de usuarios y roles (Conductor y Administrador)
+- Permisos diferenciados según rol: conductores con acceso limitado a sus propios partes; administradores con acceso completo al sistema
+- Interfaces adaptadas según el rol del usuario
+
+## Gestión de Partes de Trabajo
+- Creación, visualización y edición de partes de trabajo con información detallada (fecha, kilómetros, observaciones)
+- Capacidad para añadir múltiples líneas por parte con datos específicos (obras, lugares, tiempos, materiales)
+- Validación en tiempo real de datos para garantizar la integridad de la información
+- Sistema de guardado/envío con confirmación
+
+## Panel de Administración Completo
+- Visualización y gestión centralizada de todos los partes de trabajo
+- Funcionalidades avanzadas de búsqueda y filtrado
+- Operaciones CRUD completas para todas las entidades relacionadas: Conductores, Vehículos, Transportistas, Clientes, Obras, Materiales, Jornadas y Radios
+- Interfaz optimizada para supervición y gestión eficiente
+
+## Gestión de Entidades del Sistema
+- Mantenimiento completo de todas las entidades necesarias para la operación
+- Relaciones establecidas entre entidades para mantener la integridad referencial
+- Formularios especializados para cada tipo de entidad con sus campos específicos
+
+# User Experience
+
+## Perfiles de Usuario
+
+### Conductores
+- Usuarios móviles/de campo con necesidades de interfaces sencillas y eficientes
+- Prioridad en la velocidad de entrada de datos y claridad en los formularios
+- Acceso principalmente desde dispositivos móviles y tablets
+- Necesitan completar partes rápidamente, a menudo en condiciones no ideales (en ruta)
+
+### Administradores
+- Usuarios de back-office con necesidad de análisis y gestión detallada
+- Requieren visibilidad completa de las operaciones
+- Acceso principalmente desde escritorio, aunque con capacidad responsive
+- Necesitan herramientas de búsqueda, filtrado y edición avanzadas
+
+## Flujos de Usuario Clave
+
+### Flujo del Conductor
+1. Acceso al sistema mediante autenticación segura
+2. Visualización de dashboard con listado de sus partes de trabajo
+3. Creación de nuevo parte mediante formulario intuitivo
+4. Adición de múltiples líneas al parte con validación en tiempo real
+5. Envío del parte completado
+
+### Flujo del Administrador
+1. Acceso al sistema mediante autenticación segura
+2. Visualización del panel de control con actividad reciente
+3. Navegación entre las diferentes secciones de gestión
+4. Operaciones CRUD en cualquier entidad del sistema
+5. Visualización, edición y corrección de partes enviados por conductores
+
+## Consideraciones UI/UX
+- Diseño responsivo para funcionar en todos los dispositivos
+- Interfaces diferenciadas según rol, optimizadas para cada caso de uso
+- Prioridad a la usabilidad y reducción de fricción en el proceso de entrada de datos
+- Uso de componentes Shadcn UI para una experiencia coherente y profesional
+- Validación instantánea para prevenir errores y mejorar la calidad de datos
+
+# Technical Architecture
+
+## Componentes del Sistema
+
+### Frontend
+- Next.js con App Router como framework principal
+- Tailwind CSS para estilos responsivos y mantenibles
+- Shadcn UI para componentes consistentes y accesibles
+- Sistema de gestión de estado con Zustand/Jotai/Context según necesidad
+- Validación de formularios con Zod
+
+### Backend
+- API Routes de Next.js para endpoints de servicio
+- Autenticación y gestión de usuarios mediante Clerk
+- Validación robusta con Zod en el backend
+- Manejo de permisos basado en roles
+
+### Persistencia
+- Base de datos PostgreSQL Serverless mediante Neon
+- ORM Prisma para modelado y consultas de datos
+- Migraciones gestionadas mediante Prisma Migrate
+
+## Modelos de Datos
+
+### Entidades Principales
+- ParteDeTrabajo: Documento central que registra la actividad de transporte
+- LineaParte: Detalle de cada actividad específica dentro de un parte
+
+### Entidades Secundarias
+- Vehículo: Información de los vehículos utilizados
+- Conductor: Datos de los conductores
+- Transportista: Empresas de transporte
+- Cliente: Destinatarios/contratantes del servicio
+- Obra: Lugares donde se realizan trabajos
+- Material: Tipos de materiales transportados
+- Jornada: Clasificación de periodos de trabajo
+- Radio: Rangos de distancia para trayectos
+
+## Integraciones
+- Clerk para autenticación y gestión de usuarios
+- Neon PostgreSQL para almacenamiento de datos
+- Posible integración con servicios de mapas/geolocalización (fase futura)
+
+# Development Roadmap
+
+## Fase 1: MVP - Funcionalidad Básica
+- Configuración del proyecto con Next.js, Tailwind y Shadcn UI
+- Implementación de autenticación con Clerk y roles básicos
+- Modelado de base de datos inicial con Prisma
+- Desarrollo del flujo de creación de partes para conductores
+- Panel básico de administración para visualizar partes
+
+## Fase 2: Gestión Completa de Entidades
+- Implementación de CRUD completo para todas las entidades secundarias
+- Mejora de las validaciones y lógica de negocio
+- Refinamiento de la interfaz de usuario basado en feedback inicial
+- Funcionalidades avanzadas de búsqueda y filtrado
+
+## Fase 3: Optimización y Características Avanzadas
+- Implementación de análisis y reportes para administradores
+- Mejoras de rendimiento y optimización de consultas
+- Características offline para conductores (guardado local)
+- Exportación de datos a formatos comunes (Excel, PDF)
+
+## Fase 4: Escalabilidad y Extensiones
+- Posible integración con sistemas externos (ERP, CRM)
+- Funcionalidades de geolocalización y tracking
+- Análisis avanzado de datos y tendencias
+- API extendida para integraciones de terceros
+
+# Logical Dependency Chain
+
+## Fundamentos (Primeras Implementaciones)
+1. Configuración del proyecto y estructura base
+2. Implementación de autenticación y control de acceso con Clerk
+3. Modelado de base de datos y configuración de Prisma con Neon
+4. Desarrollo de componentes UI básicos con Shadcn UI
+
+## Desarrollo Incremental (Ruta al MVP Usable)
+1. Flujo de creación de partes para conductores (interfaz simplificada)
+2. Listado básico de partes para administradores
+3. Funcionalidad CRUD para entidades principales (Vehículos, Conductores)
+4. Panel de administración mínimo viable
+
+## Expansión Gradual
+1. Completar la implementación CRUD para todas las entidades secundarias
+2. Mejorar las funcionalidades de búsqueda y filtrado
+3. Refinamiento de interfaces basado en feedback de usuarios
+4. Implementación de características avanzadas de validación
+
+## Características Avanzadas
+1. Reportes y análisis para administradores
+2. Funcionalidades offline para conductores
+3. Exportación e importación de datos
+4. Optimizaciones de rendimiento y experiencia de usuario
+
+# Risks and Mitigations
+
+## Desafíos Técnicos
+- **Riesgo**: Complejidad en las relaciones de datos y validaciones específicas del negocio.
+  **Mitigación**: Modelado cuidadoso con Prisma y validación robusta con Zod en todas las capas.
+
+- **Riesgo**: Rendimiento con grandes volúmenes de datos en consultas complejas.
+  **Mitigación**: Implementar estrategias de paginación, indexación adecuada y optimización de consultas.
+
+## Definición del MVP
+- **Riesgo**: Alcance inicial demasiado ambicioso que retrase la entrega de valor.
+  **Mitigación**: Priorizar claramente las funcionalidades esenciales para conductores y administradores, enfocándose en el flujo principal de partes de trabajo.
+
+- **Riesgo**: Interfaces demasiado complejas para usuarios de campo (conductores).
+  **Mitigación**: Diseño simplificado y pruebas de usabilidad tempranas con usuarios reales.
+
+## Limitaciones de Recursos
+- **Riesgo**: Carga de desarrollo significativa para implementar todas las entidades y relaciones.
+  **Mitigación**: Enfoque incremental, priorizando entidades críticas y completando el sistema progresivamente.
+
+- **Riesgo**: Complejidad en la implementación de lógicas de validación específicas del negocio.
+  **Mitigación**: Documentación clara de reglas de negocio y sesiones de revisión con stakeholders.
+
+# Appendix
+
+## Esquema de Base de Datos Detallado
+
+### ParteDeTrabajo
+- id: String (UUID, PK)
+- fecha: Date (YYYY-MM-DD)
+- matriculaId: String (FK → Vehiculo)
+- kmInicio: Number (Integer, ≥ 0)
+- kmFin: Number (Integer, ≥ kmInicio)
+- conductorId: String (FK → Conductor)
+- transportistaId: String (FK → Transportista)
+- observaciones: String (opcional)
+- createdAt: Timestamp
+- updatedAt: Timestamp
+
+### LineaParte
+- id: String (UUID, PK)
+- parteTrabajoId: String (FK → ParteDeTrabajo)
+- obraId: String (FK → Obra)
+- lugarCarga: String
+- lugarDescarga: String
+- tiempoEspera: String (HH:MM)
+- tiempoTrabajo: String (HH:MM)
+- toneladas: Number (Decimal, ≥ 0)
+- materialId: String (FK → Material)
+- jornadaId: String (FK → Jornada)
+- radioId: String (FK → Radio)
+- fresado: Boolean (default: false)
+- retornoAPlanta: Boolean (default: false)
+- orden: Integer
+
+## Consideraciones de Implementación Técnica
+
+- **Clerk Integration**: Configuración específica para roles y permisos
+- **Shadcn UI**: Componentes recomendados para cada tipo de página/formulario
+- **Prisma Schema**: Configuración recomendada para relaciones y validaciones
+- **API Design**: Estructura de endpoints RESTful para todas las operaciones
+
+## Referencia de Stack Tecnológico
+
+- **Frontend**: Next.js (App Router), Tailwind CSS, Shadcn UI
+- **Estado**: Zustand/Jotai/React Context
+- **Backend**: Next.js API Routes
+- **Validación**: Zod
+- **Base de Datos**: Neon (PostgreSQL Serverless)
+- **ORM**: Prisma
+- **Autenticación**: Clerk 
