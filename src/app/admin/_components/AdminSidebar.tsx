@@ -30,15 +30,39 @@ import { AppSidebar } from "@/components/AppSidebar";
 // Links for the admin sidebar with Lucide React icons
 const links = [
   { href: "/admin", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
-  { href: "/admin/partes", label: "Partes de Trabajo", icon: <FileText size={18} /> },
-  { href: "/admin/conductores", label: "Conductores", icon: <User size={18} /> },
+  {
+    href: "/admin/partes",
+    label: "Partes de Trabajo",
+    icon: <FileText size={18} />,
+  },
+  {
+    href: "/admin/conductores",
+    label: "Conductores",
+    icon: <User size={18} />,
+  },
   { href: "/admin/vehiculos", label: "Vehículos", icon: <Truck size={18} /> },
   { href: "/admin/clientes", label: "Clientes", icon: <Users size={18} /> },
   { href: "/admin/obras", label: "Obras", icon: <Construction size={18} /> },
-  { href: "/admin/transportistas", label: "Transportistas", icon: <Truck size={18} /> },
-  { href: "/admin/materiales", label: "Materiales", icon: <Package size={18} /> },
-  { href: "/admin/radios", label: "Radios", icon: <MapPin size={18} /> },
-  { href: "/admin/jornadas", label: "Jornadas", icon: <Clock size={18} /> },
+  {
+    href: "/admin/transportistas",
+    label: "Transportistas",
+    icon: <Truck size={18} />,
+  },
+  {
+    href: "/admin/materiales",
+    label: "Materiales",
+    icon: <Package size={18} />,
+  },
+  {
+    href: "/admin/radios",
+    label: "Radios de trabajo",
+    icon: <MapPin size={18} />,
+  },
+  {
+    href: "/admin/jornadas",
+    label: "Tipos de Jornadas",
+    icon: <Clock size={18} />,
+  },
 ];
 
 export function AdminSidebar() {
@@ -76,7 +100,7 @@ export function AdminSidebar() {
   );
 
   return (
-    <AppSidebar 
+    <AppSidebar
       header="BL"
       content={sidebarContent}
       footer={sidebarFooter}
@@ -84,4 +108,4 @@ export function AdminSidebar() {
       variant="floating"
     />
   );
-} 
+}

@@ -18,7 +18,7 @@ export default async function AdminLayout({
 }) {
   // Verify the user is an admin
   await requireAdmin();
-  
+
   return (
     <>
       <AdminSidebar />
@@ -40,10 +40,8 @@ export default async function AdminLayout({
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col p-6">
-          {children}
-        </div>
+        <div className="flex flex-1 flex-col p-6">{children}</div>
       </SidebarInset>
     </>
   );
-} 
+}

@@ -2,13 +2,15 @@ import { SignUp } from "@clerk/nextjs";
 
 export default function SignUpPage() {
   return (
-    <SignUp
-      appearance={{
-        elements: {
-          formButtonPrimary: 'bg-blue-600 hover:bg-blue-700 text-sm normal-case',
-          footerActionLink: 'text-blue-600 hover:text-blue-700'
-        }
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
       }}
-    />
+    >
+      <SignUp path="/sign-up" routing="path" signInUrl="/sign-in" />
+    </div>
   );
-} 
+}
